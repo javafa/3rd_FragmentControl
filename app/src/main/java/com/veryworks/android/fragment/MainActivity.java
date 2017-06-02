@@ -22,9 +22,10 @@ public class MainActivity extends AppCompatActivity {
         list = new ListFragment();
         list.setActivity(this);
         detail = new DetailFragment();
+        detail.setActivity(this);
     }
 
-    private void addList(){
+    public void addList(){
         /*
           프래그먼트 화면에 넣기
         */
@@ -39,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
     public void addDetail(){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, detail);
+        // 트랜잭션 처리 전체를 stack 에 담아놨다가, 안드로이드의 back 버튼으로 뒤로가기를 할 수 있다.
+        transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void backToList(){
+        super.onBackPressed();
     }
 }
